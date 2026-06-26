@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配分管理DB — CAMEL Phase I</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d0f14; color: #e2e8f0; font-family: 'Helvetica Neue', sans-serif; padding: 1.25rem 1rem 3rem; min-height: 100vh; }
+
+.header { border-bottom: 2px solid #00c8a0; padding-bottom: 0.6rem; margin-bottom: 1.25rem; }
+.header-sub { font-size: 0.58rem; letter-spacing: 0.18em; color: #00c8a0; text-transform: uppercase; margin-bottom: 0.2rem; }
+.header-title { font-size: 1.2rem; font-weight: 900; }
+
+/* SUMMARY */
+.summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1.25rem; }
+.s-card { background: #151820; border: 1px solid #1e2330; border-radius: 6px; padding: 0.6rem 0.75rem; }
+.s-label { font-size: 0.55rem; color: #64748b; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.s-value { font-size: 0.95rem; font-weight: 700; font-family: monospace; }
+
+/* SECTION TITLE */
+.sec-title { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e2330; }
+
+/* DIST CARDS */
+.dist-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+
+.dist-card { background: #151820; border: 1px solid #1e2330; border-radius: 8px; overflow: hidden; }
+.dist-card.gk { border-left: 3px solid #00c8a0; }
+.dist-card.gooner-card { border-left: 3px solid #3b82f6; }
+
+.dist-card-header { padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #151820; }
+.dist-card-name { font-size: 0.8rem; font-weight: 700; }
+.dist-card-pct { font-size: 0.68rem; color: #64748b; font-family: monospace; }
+
+.dist-card-body { padding: 0 0.85rem 0.65rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 0.4rem; }
+.dist-stat { }
+.dist-stat-label { font-size: 0.55rem; color: #64748b; margin-bottom: 0.15rem; }
+.dist-stat-value { font-size: 0.82rem; font-family: monospace; font-weight: 600; }
+
+.progress-bar-wrap { padding: 0 0.85rem 0.65rem; }
+.progress-bar { height: 4px; background: #1e2330; border-radius: 2px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s; }
+
+.sub-item { margin: 0 0.85rem 0.6rem; background: #0d0f14; border-radius: 4px; padding: 0.35rem 0.6rem; display: flex; justify-content: space-between; align-items: center; }
+.sub-item-label { font-size: 0.6rem; color: #64748b; }
+.sub-item-value { font-size: 0.72rem; font-family: monospace; color: #64748b; }
+
+/* TOTAL */
+.total-bar { background: #0d0f14; border: 1px solid #1e2330; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.total-bar-label { font-size: 0.75rem; font-weight: 700; }
+.total-bar-value { font-size: 1rem; font-weight: 700; font-family: monospace; color: #00c8a0; }
+
+/* HISTORY */
+.hist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.btn { background: #00c8a0; color: #0d0f14; border: none; border-radius: 4px; padding: 0.35rem 0.85rem; font-size: 0.68rem; font-weight: 700; cursor: pointer; }
+
+.hist-item { background: #151820; border: 1px solid #1e2330; border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
+.hist-meta { padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e2330; background: #0d0f14; }
+.hist-date { font-size: 0.68rem; color: #64748b; font-family: monospace; }
+.hist-total { font-size: 0.9rem; font-weight: 700; color: #3b82f6; font-family: monospace; }
+.hist-entries { padding: 0.6rem 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.hist-entry { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.35rem 0.5rem; background: #0d0f14; border-radius: 4px; }
+.hist-entry.gk-entry { border-left: 2px solid #00c8a0; }
+.hist-entry-left { }
+.hist-entry-name { font-size: 0.7rem; font-weight: 600; }
+.hist-entry-sub { font-size: 0.6rem; color: #64748b; margin-top: 0.1rem; }
+.hist-entry-val { font-size: 0.8rem; font-family: monospace; color: #00c8a0; font-weight: 700; text-align: right; }
+.hist-note { padding: 0.4rem 0.85rem 0.65rem; font-size: 0.62rem; color: #64748b; font-style: italic; }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: flex-end; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: #151820; border-top: 1px solid #1e2330; border-radius: 16px 16px 0 0; padding: 1.25rem 1.25rem 2rem; width: 100%; max-height: 90vh; overflow-y: auto; }
+.modal-title { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; margin-bottom: 1rem; }
+.field { margin-bottom: 0.65rem; }
+.field-label { font-size: 0.6rem; color: #64748b; margin-bottom: 0.2rem; }
+.field input { width: 100%; background: #0d0f14; border: 1px solid #1e2330; border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.82rem; font-family: monospace; outline: none; }
+.field-group { background: #0d0f14; border: 1px solid #1e2330; border-radius: 6px; padding: 0.65rem 0.75rem; margin-bottom: 0.65rem; }
+.field-group-title { font-size: 0.6rem; color: #00c8a0; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
+.modal-btns { display: flex; gap: 0.75rem; margin-top: 1rem; }
+.modal-btns button { flex: 1; padding: 0.65rem; font-size: 0.75rem; border-radius: 6px; cursor: pointer; font-weight: 700; }
+.btn-cancel { background: transparent; color: #64748b; border: 1px solid #1e2330; }
+
+.green { color: #00c8a0; }
+.blue { color: #3b82f6; }
+.amber { color: #f59e0b; }
+.red { color: #ef4444; }
+.muted { color: #64748b; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-sub">一宮市北高井東地区開発 — CAMEL Phase I</div>
+  <div class="header-title">調達金配分管理DB</div>
+</div>
+
+<div class="summary">
+  <div class="s-card">
+    <div class="s-label">累積調達金</div>
+    <div class="s-value blue" id="total-paid">—</div>
+  </div>
+  <div class="s-card">
+    <div class="s-label">目標</div>
+    <div class="s-value muted">2.47億</div>
+  </div>
+  <div class="s-card">
+    <div class="s-label">進捗</div>
+    <div class="s-value green" id="progress">—</div>
+  </div>
+</div>
+
+<div class="sec-title">配分状況 — 理論値 vs 実績</div>
+<div class="dist-cards" id="dist-cards"></div>
+<div class="total-bar">
+  <span class="total-bar-label">合計</span>
+  <span class="total-bar-value" id="total-cum">—</span>
+</div>
+
+<div class="hist-header">
+  <div class="sec-title" style="margin-bottom:0">配分履歴</div>
+  <button class="btn" onclick="openModal()">＋ 配分を追加</button>
+</div>
+<div id="history-list"></div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">配分を追加</div>
+    <div class="field"><div class="field-label">入金日</div><input id="f-date" placeholder="2026/07/01"></div>
+    <div class="field"><div class="field-label">調達金支払額（円）</div><input id="f-total" type="number" placeholder="10200000"></div>
+    <div class="field-group">
+      <div class="field-group-title">▍ GK受取枠 — FAフィー（川畑氏）</div>
+      <div class="field"><div class="field-label">支払額（円）</div><input id="f-fa" type="number" placeholder="0"></div>
+      <div class="field" style="margin-bottom:0"><div class="field-label">うち深山信次立替済（円）</div><input id="f-fa-tatekae" type="number" placeholder="0"></div>
+    </div>
+    <div class="field"><div class="field-label">深山信次・FGC（円）</div><input id="f-fgc" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">GE未収金（円）</div><input id="f-ge1" type="number" placeholder="0"></div>
+    <div class="field-group">
+      <div class="field-group-title" style="color:#3b82f6">▍ Gooner</div>
+      <div class="field"><div class="field-label">本体（円）</div><input id="f-gooner" type="number" placeholder="0"></div>
+      <div class="field" style="margin-bottom:0"><div class="field-label">うちGE報酬（付帯・円）</div><input id="f-ge2" type="number" placeholder="0"></div>
+    </div>
+    <div class="field"><div class="field-label">備考</div><input id="f-note"></div>
+    <div class="modal-btns">
+      <button class="btn" onclick="addPayment()">追加</button>
+      <button class="btn-cancel" onclick="closeModal()">キャンセル</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TARGET = 247000000;
+const RATIOS = {
+  fa_kawabata: 7410000 / TARGET,
+  fgc_miyama:  173000000 / TARGET,
+  ge_misshuu:  12504819 / TARGET,
+  gooner:      (51590000 + 2495181) / TARGET,
+  bank:        0,
+};
+
+let payments = [
+  {
+    id: 1,
+    date: "2026/06/25",
+    total_paid: 32860000,
+    entries: {
+      fa_kawabata: 2000000,   // 川畑氏FA（深山信次立替済み）
+      fa_tatekae:  2000000,   // 深山信次立替済み額
+      fgc_miyama:  25500000,  // 深山信次・FGC（Gooner経由）
+      ge_misshuu:  5000000,   // GE未収金
+      gooner:      0,
+      ge_hoshu:    0,
+      bank_zandaka: 353840,   // 銀行残高
+      furikomi_fee: 6160,     // 振込手数料合計（880×7件）
+    },
+    note: "川畑氏200万は深山信次が立替払い済み。GE実質300万+100万+100万=500万。Gooner（深山信次）500万+250万+900万+900万=2,550万。残高353,840＋手数料6,160＝360,000円。",
+  },
+];
+
+const fmt = (n) => (!n || n === 0) ? "—" : "¥" + Math.round(n).toLocaleString("ja-JP");
+const pct = (n) => (n * 100).toFixed(1) + "%";
+
+function diffColor(d) {
+  if (d > 1000) return '#f59e0b';
+  if (d < -1000) return '#ef4444';
+  return '#64748b';
+}
+function diffLabel(d) {
+  if (Math.abs(d) < 1000) return '—';
+  return (d > 0 ? '+' : '') + fmt(Math.abs(d));
+}
+
+function render() {
+  const totalPaid = payments.reduce((s, p) => s + p.total_paid, 0);
+  document.getElementById("total-paid").textContent = fmt(totalPaid);
+  document.getElementById("progress").textContent = pct(totalPaid / TARGET);
+
+  const cum = {
+    fa_kawabata:  payments.reduce((s, p) => s + (p.entries.fa_kawabata || 0), 0),
+    fa_tatekae:   payments.reduce((s, p) => s + (p.entries.fa_tatekae || 0), 0),
+    fgc_miyama:   payments.reduce((s, p) => s + (p.entries.fgc_miyama || 0), 0),
+    ge_misshuu:   payments.reduce((s, p) => s + (p.entries.ge_misshuu || 0), 0),
+    gooner:       payments.reduce((s, p) => s + (p.entries.gooner || 0), 0),
+    ge_hoshu:     payments.reduce((s, p) => s + (p.entries.ge_hoshu || 0), 0),
+    bank_zandaka: payments.reduce((s, p) => s + (p.entries.bank_zandaka || 0), 0),
+    furikomi_fee: payments.reduce((s, p) => s + (p.entries.furikomi_fee || 0), 0),
+  };
+
+  const cards = [
+    {
+      key: 'fa_kawabata',
+      name: 'GK受取枠 — FAフィー（川畑氏）',
+      cls: 'gk',
+      theo: totalPaid * RATIOS.fa_kawabata,
+      real: cum.fa_kawabata,
+      sub: cum.fa_tatekae ? `└ 深山信次立替済：${fmt(cum.fa_tatekae)}` : null,
+    },
+    {
+      key: 'fgc_miyama',
+      name: '深山信次・FGC',
+      cls: '',
+      theo: totalPaid * RATIOS.fgc_miyama,
+      real: cum.fgc_miyama,
+      sub: null,
+    },
+    {
+      key: 'ge_misshuu',
+      name: 'グローバルエナジー未収金',
+      cls: '',
+      theo: totalPaid * RATIOS.ge_misshuu,
+      real: cum.ge_misshuu,
+      sub: null,
+    },
+    {
+      key: 'gooner',
+      name: 'Gooner',
+      cls: 'gooner-card',
+      theo: totalPaid * RATIOS.gooner,
+      real: cum.gooner + cum.ge_hoshu,
+      sub: cum.ge_hoshu ? `└ GE報酬（付帯）：${fmt(cum.ge_hoshu)}` : '└ GE報酬（付帯）：—',
+    },
+    {
+      key: 'bank',
+      name: 'GK — 銀行残高＋振込手数料',
+      cls: '',
+      theo: 0,
+      real: cum.bank_zandaka + cum.furikomi_fee,
+      sub: `└ 残高：${fmt(cum.bank_zandaka)}　手数料：${fmt(cum.furikomi_fee)}`,
+    },
+  ];
+
+  const container = document.getElementById("dist-cards");
+  container.innerHTML = "";
+  let cumTotal = 0;
+
+  cards.forEach(c => {
+    cumTotal += c.real;
+    const d = c.real - c.theo;
+    const progress = c.theo > 0 ? Math.min(c.real / c.theo, 1) : 0;
+    const barColor = c.cls === 'gk' ? '#00c8a0' : c.cls === 'gooner-card' ? '#3b82f6' : '#64748b';
+
+    const div = document.createElement("div");
+    div.className = `dist-card ${c.cls}`;
+    div.innerHTML = `
+      <div class="dist-card-header">
+        <span class="dist-card-name">${c.name}</span>
+        <span class="dist-card-pct">${pct(RATIOS[c.key])}</span>
+      </div>
+      <div class="dist-card-body">
+        <div class="dist-stat">
+          <div class="dist-stat-label">理論値</div>
+          <div class="dist-stat-value muted">${fmt(c.theo)}</div>
+        </div>
+        <div class="dist-stat">
+          <div class="dist-stat-label">実績</div>
+          <div class="dist-stat-value" style="color:${barColor}">${fmt(c.real)}</div>
+        </div>
+        <div class="dist-stat">
+          <div class="dist-stat-label">差異</div>
+          <div class="dist-stat-value" style="color:${diffColor(d)}">${diffLabel(d)}</div>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-bar-fill" style="width:${(progress*100).toFixed(1)}%;background:${barColor}"></div></div>
+      </div>
+      ${c.sub ? `<div class="sub-item"><span class="sub-item-label">${c.sub}</span></div>` : ''}
+    `;
+    container.appendChild(div);
+  });
+
+  document.getElementById("total-cum").textContent = fmt(cumTotal);
+
+  // History
+  const histList = document.getElementById("history-list");
+  histList.innerHTML = "";
+  [...payments].reverse().forEach(p => {
+    const goonerTotal = (p.entries.gooner || 0) + (p.entries.ge_hoshu || 0);
+    const entries = [
+      { name: 'GK受取枠 — FAフィー（川畑氏）', val: p.entries.fa_kawabata, sub: p.entries.fa_tatekae ? `深山信次立替済：${fmt(p.entries.fa_tatekae)}` : null, cls: 'gk-entry' },
+      { name: '深山信次・FGC', val: p.entries.fgc_miyama, sub: null, cls: '' },
+      { name: 'GE未収金', val: p.entries.ge_misshuu, sub: null, cls: '' },
+      { name: 'Gooner', val: goonerTotal, sub: p.entries.ge_hoshu ? `GE報酬（付帯）：${fmt(p.entries.ge_hoshu)}` : null, cls: '' },
+    ].filter(e => e.val > 0);
+
+    const div = document.createElement("div");
+    div.className = "hist-item";
+    div.innerHTML = `
+      <div class="hist-meta">
+        <span class="hist-date">${p.date}</span>
+        <span class="hist-total">¥${p.total_paid.toLocaleString("ja-JP")}</span>
+      </div>
+      <div class="hist-entries">
+        ${entries.map(e => `
+          <div class="hist-entry ${e.cls}">
+            <div class="hist-entry-left">
+              <div class="hist-entry-name">${e.name}</div>
+              ${e.sub ? `<div class="hist-entry-sub">${e.sub}</div>` : ''}
+            </div>
+            <div class="hist-entry-val">${fmt(e.val)}</div>
+          </div>
+        `).join("")}
+      </div>
+      ${p.note ? `<div class="hist-note">※ ${p.note}</div>` : ""}
+    `;
+    histList.appendChild(div);
+  });
+}
+
+function openModal() { document.getElementById("modal").classList.add("open"); }
+function closeModal() { document.getElementById("modal").classList.remove("open"); }
+
+function addPayment() {
+  payments.push({
+    id: Date.now(),
+    date: document.getElementById("f-date").value,
+    total_paid: parseInt(document.getElementById("f-total").value) || 0,
+    entries: {
+      fa_kawabata: parseInt(document.getElementById("f-fa").value) || 0,
+      fa_tatekae:  parseInt(document.getElementById("f-fa-tatekae").value) || 0,
+      fgc_miyama:  parseInt(document.getElementById("f-fgc").value) || 0,
+      ge_misshuu:  parseInt(document.getElementById("f-ge1").value) || 0,
+      gooner:      parseInt(document.getElementById("f-gooner").value) || 0,
+      ge_hoshu:    parseInt(document.getElementById("f-ge2").value) || 0,
+    },
+    note: document.getElementById("f-note").value,
+  });
+  closeModal();
+  ["f-date","f-total","f-fa","f-fa-tatekae","f-fgc","f-ge1","f-gooner","f-ge2","f-note"].forEach(id => {
+    document.getElementById(id).value = "";
+  });
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
