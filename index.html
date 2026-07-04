@@ -12,80 +12,87 @@ body { background: #0d0f14; color: #e2e8f0; font-family: 'Helvetica Neue', sans-
 .header-sub { font-size: 0.58rem; letter-spacing: 0.18em; color: #00c8a0; text-transform: uppercase; margin-bottom: 0.2rem; }
 .header-title { font-size: 1.2rem; font-weight: 900; }
 
+.sec-title { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e2330; margin-top: 1.5rem; }
+
 /* SUMMARY */
-.summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1.25rem; }
+.summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
 .s-card { background: #151820; border: 1px solid #1e2330; border-radius: 6px; padding: 0.6rem 0.75rem; }
 .s-label { font-size: 0.55rem; color: #64748b; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
-.s-value { font-size: 0.95rem; font-weight: 700; font-family: monospace; }
+.s-value { font-size: 0.9rem; font-weight: 700; font-family: monospace; }
 
-/* SECTION TITLE */
-.sec-title { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e2330; }
+/* PROGRESS BAR */
+.progress-wrap { background: #151820; border: 1px solid #1e2330; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; }
+.progress-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.65rem; }
+.progress-bar { height: 6px; background: #1e2330; border-radius: 3px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 3px; background: #00c8a0; transition: width 0.4s; }
 
-/* DIST CARDS */
-.dist-cards { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+/* PERSON CARDS */
+.person-cards { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.5rem; }
+.person-card { background: #151820; border: 1px solid #1e2330; border-radius: 8px; overflow: hidden; }
+.person-card.kawabata { border-left: 3px solid #00c8a0; }
+.person-card.fgc { border-left: 3px solid #a78bfa; }
+.person-card.ge { border-left: 3px solid #f59e0b; }
+.person-card.gooner { border-left: 3px solid #3b82f6; }
+.person-card.gk { border-left: 3px solid #64748b; }
 
-.dist-card { background: #151820; border: 1px solid #1e2330; border-radius: 8px; overflow: hidden; }
-.dist-card.gk { border-left: 3px solid #00c8a0; }
-.dist-card.gooner-card { border-left: 3px solid #3b82f6; }
+.pc-header { padding: 0.55rem 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e2330; }
+.pc-name { font-size: 0.8rem; font-weight: 700; }
+.pc-ratio { font-size: 0.65rem; color: #64748b; font-family: monospace; }
 
-.dist-card-header { padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #151820; }
-.dist-card-name { font-size: 0.8rem; font-weight: 700; }
-.dist-card-pct { font-size: 0.68rem; color: #64748b; font-family: monospace; }
+.pc-body { display: grid; grid-template-columns: repeat(4,1fr); padding: 0.6rem 0.85rem; gap: 0.4rem; }
+.pc-stat-label { font-size: 0.52rem; color: #64748b; margin-bottom: 0.15rem; }
+.pc-stat-value { font-size: 0.75rem; font-family: monospace; font-weight: 600; }
 
-.dist-card-body { padding: 0 0.85rem 0.65rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 0.4rem; }
-.dist-stat { }
-.dist-stat-label { font-size: 0.55rem; color: #64748b; margin-bottom: 0.15rem; }
-.dist-stat-value { font-size: 0.82rem; font-family: monospace; font-weight: 600; }
+.pc-bar-wrap { padding: 0 0.85rem 0.6rem; }
+.pc-bar { height: 3px; background: #1e2330; border-radius: 2px; overflow: hidden; }
+.pc-bar-fill { height: 100%; border-radius: 2px; }
 
-.progress-bar-wrap { padding: 0 0.85rem 0.65rem; }
-.progress-bar { height: 4px; background: #1e2330; border-radius: 2px; overflow: hidden; }
-.progress-bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s; }
-
-.sub-item { margin: 0 0.85rem 0.6rem; background: #0d0f14; border-radius: 4px; padding: 0.35rem 0.6rem; display: flex; justify-content: space-between; align-items: center; }
-.sub-item-label { font-size: 0.6rem; color: #64748b; }
-.sub-item-value { font-size: 0.72rem; font-family: monospace; color: #64748b; }
-
-/* TOTAL */
-.total-bar { background: #0d0f14; border: 1px solid #1e2330; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-.total-bar-label { font-size: 0.75rem; font-weight: 700; }
-.total-bar-value { font-size: 1rem; font-weight: 700; font-family: monospace; color: #00c8a0; }
+.pc-sub { margin: 0 0.85rem 0.6rem; background: #0d0f14; border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.6rem; color: #64748b; }
 
 /* HISTORY */
-.hist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.hist-section { margin-bottom: 1.5rem; }
+.hist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #1e2330; }
+.hist-section-title { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; }
 .btn { background: #00c8a0; color: #0d0f14; border: none; border-radius: 4px; padding: 0.35rem 0.85rem; font-size: 0.68rem; font-weight: 700; cursor: pointer; }
 
-.hist-item { background: #151820; border: 1px solid #1e2330; border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
-.hist-meta { padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e2330; background: #0d0f14; }
+.hist-item { background: #151820; border: 1px solid #1e2330; border-radius: 8px; margin-bottom: 0.6rem; overflow: hidden; }
+.hist-meta { padding: 0.5rem 0.85rem; display: flex; justify-content: space-between; align-items: center; background: #0d0f14; border-bottom: 1px solid #1e2330; }
 .hist-date { font-size: 0.68rem; color: #64748b; font-family: monospace; }
-.hist-total { font-size: 0.9rem; font-weight: 700; color: #3b82f6; font-family: monospace; }
-.hist-entries { padding: 0.6rem 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
-.hist-entry { display: flex; justify-content: space-between; align-items: flex-start; padding: 0.35rem 0.5rem; background: #0d0f14; border-radius: 4px; }
-.hist-entry.gk-entry { border-left: 2px solid #00c8a0; }
-.hist-entry-left { }
-.hist-entry-name { font-size: 0.7rem; font-weight: 600; }
-.hist-entry-sub { font-size: 0.6rem; color: #64748b; margin-top: 0.1rem; }
-.hist-entry-val { font-size: 0.8rem; font-family: monospace; color: #00c8a0; font-weight: 700; text-align: right; }
-.hist-note { padding: 0.4rem 0.85rem 0.65rem; font-size: 0.62rem; color: #64748b; font-style: italic; }
+.hist-amount { font-size: 0.88rem; font-weight: 700; font-family: monospace; }
+.hist-entries { padding: 0.5rem 0.85rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.hist-entry { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0.5rem; background: #0d0f14; border-radius: 4px; font-size: 0.72rem; }
+.hist-entry-name { color: #94a3b8; }
+.hist-entry-val { font-family: monospace; font-weight: 600; }
+.positive { color: #00c8a0; }
+.negative { color: #ef4444; }
+.hist-note { padding: 0.35rem 0.85rem 0.55rem; font-size: 0.62rem; color: #64748b; font-style: italic; }
+
+.badge { font-size: 0.52rem; background: #f59e0b22; color: #f59e0b; border-radius: 3px; padding: 0.1rem 0.35rem; margin-left: 0.4rem; }
+.badge-blue { background: #3b82f622; color: #3b82f6; }
 
 /* MODAL */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: flex-end; justify-content: center; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: flex-end; justify-content: center; }
 .modal-overlay.open { display: flex; }
-.modal { background: #151820; border-top: 1px solid #1e2330; border-radius: 16px 16px 0 0; padding: 1.25rem 1.25rem 2rem; width: 100%; max-height: 90vh; overflow-y: auto; }
+.modal { background: #151820; border-top: 1px solid #1e2330; border-radius: 16px 16px 0 0; padding: 1.25rem 1.25rem 2.5rem; width: 100%; max-height: 92vh; overflow-y: auto; }
 .modal-title { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #64748b; margin-bottom: 1rem; }
 .field { margin-bottom: 0.65rem; }
 .field-label { font-size: 0.6rem; color: #64748b; margin-bottom: 0.2rem; }
-.field input { width: 100%; background: #0d0f14; border: 1px solid #1e2330; border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.82rem; font-family: monospace; outline: none; }
+.field input, .field select, .field textarea { width: 100%; background: #0d0f14; border: 1px solid #1e2330; border-radius: 6px; padding: 0.5rem 0.75rem; color: #e2e8f0; font-size: 0.82rem; font-family: monospace; outline: none; }
+.field select option { background: #151820; }
 .field-group { background: #0d0f14; border: 1px solid #1e2330; border-radius: 6px; padding: 0.65rem 0.75rem; margin-bottom: 0.65rem; }
 .field-group-title { font-size: 0.6rem; color: #00c8a0; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
 .modal-btns { display: flex; gap: 0.75rem; margin-top: 1rem; }
 .modal-btns button { flex: 1; padding: 0.65rem; font-size: 0.75rem; border-radius: 6px; cursor: pointer; font-weight: 700; }
 .btn-cancel { background: transparent; color: #64748b; border: 1px solid #1e2330; }
+.modal-section { display: none; }
+.modal-section.active { display: block; }
 
 .green { color: #00c8a0; }
 .blue { color: #3b82f6; }
 .amber { color: #f59e0b; }
 .red { color: #ef4444; }
 .muted { color: #64748b; }
+.purple { color: #a78bfa; }
 </style>
 </head>
 <body>
@@ -95,54 +102,103 @@ body { background: #0d0f14; color: #e2e8f0; font-family: 'Helvetica Neue', sans-
   <div class="header-title">調達金配分管理DB</div>
 </div>
 
+<!-- 全体進捗 -->
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span class="muted" style="font-size:0.65rem">累積調達金</span>
+    <span id="total-paid-label" style="font-family:monospace;font-size:0.8rem;color:#3b82f6">—</span>
+  </div>
+  <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  <div class="progress-label" style="margin-top:0.4rem;margin-bottom:0">
+    <span class="muted" style="font-size:0.58rem">目標：¥247,000,000</span>
+    <span id="progress-pct" class="green" style="font-size:0.72rem;font-weight:700">0.0%</span>
+  </div>
+</div>
+
 <div class="summary">
   <div class="s-card">
-    <div class="s-label">累積調達金</div>
-    <div class="s-value blue" id="total-paid">—</div>
+    <div class="s-label">残調達額</div>
+    <div class="s-value amber" id="remaining-total">—</div>
   </div>
   <div class="s-card">
-    <div class="s-label">目標</div>
-    <div class="s-value muted">2.47億</div>
+    <div class="s-label">GK残高</div>
+    <div class="s-value green" id="gk-balance">—</div>
   </div>
   <div class="s-card">
-    <div class="s-label">進捗</div>
-    <div class="s-value green" id="progress">—</div>
+    <div class="s-label">手数料計</div>
+    <div class="s-value muted" id="total-fee">—</div>
   </div>
 </div>
 
-<div class="sec-title">配分状況 — 理論値 vs 実績</div>
-<div class="dist-cards" id="dist-cards"></div>
-<div class="total-bar">
-  <span class="total-bar-label">合計</span>
-  <span class="total-bar-value" id="total-cum">—</span>
+<!-- 配分ステータス -->
+<div class="sec-title" style="margin-top:0">配分ステータス</div>
+<div class="person-cards" id="person-cards"></div>
+
+<!-- GK通帳履歴 -->
+<div class="hist-section">
+  <div class="hist-header">
+    <span class="hist-section-title">GK通帳履歴</span>
+    <button class="btn" onclick="openModal('payment')">＋ 追加</button>
+  </div>
+  <div id="hist-payment"></div>
 </div>
 
-<div class="hist-header">
-  <div class="sec-title" style="margin-bottom:0">配分履歴</div>
-  <button class="btn" onclick="openModal()">＋ 配分を追加</button>
+<!-- 通帳外取引 -->
+<div class="hist-section">
+  <div class="hist-header">
+    <span class="hist-section-title">通帳外取引</span>
+    <button class="btn" onclick="openModal('transfer')">＋ 追加</button>
+  </div>
+  <div id="hist-transfer"></div>
 </div>
-<div id="history-list"></div>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
-    <div class="modal-title">配分を追加</div>
-    <div class="field"><div class="field-label">入金日</div><input id="f-date" placeholder="2026/07/01"></div>
-    <div class="field"><div class="field-label">調達金支払額（円）</div><input id="f-total" type="number" placeholder="10200000"></div>
-    <div class="field-group">
-      <div class="field-group-title">▍ GK受取枠 — FAフィー（川畑氏）</div>
-      <div class="field"><div class="field-label">支払額（円）</div><input id="f-fa" type="number" placeholder="0"></div>
-      <div class="field" style="margin-bottom:0"><div class="field-label">うち深山信次立替済（円）</div><input id="f-fa-tatekae" type="number" placeholder="0"></div>
+    <div class="modal-title" id="modal-title">追加</div>
+
+    <!-- 入金配分フォーム -->
+    <div id="section-payment" class="modal-section">
+      <div class="field"><div class="field-label">日付</div><input id="p-date" placeholder="2025/07/01"></div>
+      <div class="field"><div class="field-label">GKへの入金額（円）</div><input id="p-income" type="number" placeholder="0"></div>
+      <div class="field-group">
+        <div class="field-group-title">▍ 出金配分</div>
+        <div class="field"><div class="field-label">GE未収金（円）</div><input id="p-ge" type="number" placeholder="0"></div>
+        <div class="field"><div class="field-label">Gooner（円）</div><input id="p-gooner" type="number" placeholder="0"></div>
+        <div class="field"><div class="field-label">川畑氏FAフィー（円）</div><input id="p-kawabata" type="number" placeholder="0"></div>
+        <div class="field"><div class="field-label">振込手数料（円）</div><input id="p-fee" type="number" placeholder="0"></div>
+        <div class="field" style="margin-bottom:0"><div class="field-label">GK残高増減（円）</div><input id="p-bank" type="number" placeholder="0"></div>
+      </div>
+      <div class="field"><div class="field-label">備考</div><input id="p-note"></div>
     </div>
-    <div class="field"><div class="field-label">深山信次・FGC（円）</div><input id="f-fgc" type="number" placeholder="0"></div>
-    <div class="field"><div class="field-label">GE未収金（円）</div><input id="f-ge1" type="number" placeholder="0"></div>
-    <div class="field-group">
-      <div class="field-group-title" style="color:#3b82f6">▍ Gooner</div>
-      <div class="field"><div class="field-label">本体（円）</div><input id="f-gooner" type="number" placeholder="0"></div>
-      <div class="field" style="margin-bottom:0"><div class="field-label">うちGE報酬（付帯・円）</div><input id="f-ge2" type="number" placeholder="0"></div>
+
+    <!-- 通帳外取引フォーム -->
+    <div id="section-transfer" class="modal-section">
+      <div class="field"><div class="field-label">日付</div><input id="t-date" placeholder="2025/07/01"></div>
+      <div class="field">
+        <div class="field-label">振替元</div>
+        <select id="t-from">
+          <option value="gooner">Gooner</option>
+          <option value="fgc_miyama">深山信次・FGC</option>
+          <option value="ge">GE</option>
+          <option value="kawabata">川畑氏</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="field-label">振替先</div>
+        <select id="t-to">
+          <option value="fgc_miyama">深山信次・FGC</option>
+          <option value="kawabata">川畑氏</option>
+          <option value="gooner">Gooner</option>
+          <option value="ge">GE（報酬）</option>
+        </select>
+      </div>
+      <div class="field"><div class="field-label">金額（円）</div><input id="t-amount" type="number" placeholder="0"></div>
+      <div class="field"><div class="field-label">備考</div><input id="t-note"></div>
     </div>
-    <div class="field"><div class="field-label">備考</div><input id="f-note"></div>
+
     <div class="modal-btns">
-      <button class="btn" onclick="addPayment()">追加</button>
+      <button class="btn" onclick="submitModal()">追加</button>
       <button class="btn-cancel" onclick="closeModal()">キャンセル</button>
     </div>
   </div>
@@ -150,208 +206,449 @@ body { background: #0d0f14; color: #e2e8f0; font-family: 'Helvetica Neue', sans-
 
 <script>
 const TARGET = 247000000;
-const RATIOS = {
-  fa_kawabata: 7410000 / TARGET,
-  fgc_miyama:  173000000 / TARGET,
-  ge_misshuu:  12504819 / TARGET,
-  gooner:      (51590000 + 2495181) / TARGET,
-  bank:        0,
+
+// 確定配分総額（1回目）
+const ALLOC = {
+  kawabata:   7410000,
+  fgc_miyama: 162688214,
+  ge:         12504819,
+  gooner:     61895626,  // うちGE報酬2,495,181は通帳外でGEへ
+  fee:        6160,
+  gk_balance: 353840,
+};
+const ALLOC_TOTAL = Object.values(ALLOC).reduce((a,b)=>a+b,0); // 247,058,659 ※端数調整済
+
+const RATIO = {
+  kawabata:   ALLOC.kawabata   / TARGET,
+  fgc_miyama: ALLOC.fgc_miyama / TARGET,
+  ge:         ALLOC.ge         / TARGET,
+  gooner:     ALLOC.gooner     / TARGET,
 };
 
+const LABELS = {
+  kawabata:   '川畑氏（FAフィー）',
+  fgc_miyama: '深山信次・FGC',
+  ge:         'GE（グローバルエナジー）',
+  gooner:     'Gooner',
+};
+
+// GK通帳履歴
 let payments = [
   {
-    id: 1,
-    date: "2026/06/25",
-    total_paid: 32860000,
-    entries: {
-      fa_kawabata: 2000000,   // 川畑氏FA（深山信次立替済み）
-      fa_tatekae:  2000000,   // 深山信次立替済み額
-      fgc_miyama:  25500000,  // 深山信次・FGC（Gooner経由）
-      ge_misshuu:  5000000,   // GE未収金
-      gooner:      0,
-      ge_hoshu:    0,
-      bank_zandaka: 353840,   // 銀行残高
-      furikomi_fee: 6160,     // 振込手数料合計（880×7件）
-    },
-    note: "川畑氏200万は深山信次が立替払い済み。GE実質300万+100万+100万=500万。Gooner（深山信次）500万+250万+900万+900万=2,550万。残高353,840＋手数料6,160＝360,000円。",
+    id: 1, date: "2025/05/28", income: 10060000,
+    dist: { ge: 5000000, gooner: 0, kawabata: 0, fee: 880, bank: 0 },
+    note: "GCエステー振込。GE未収金500万出金。",
+  },
+  {
+    id: 2, date: "2025/05/29", income: 0,
+    dist: { ge: 0, gooner: 5000000, kawabata: 0, fee: 880, bank: 0 },
+    note: "Gooner出金500万。",
+  },
+  {
+    id: 3, date: "2025/06/11", income: 2700000,
+    dist: { ge: 0, gooner: 0, kawabata: 0, fee: 0, bank: 0 },
+    note: "GCエステー振込。出金なし。",
+  },
+  {
+    id: 4, date: "2025/06/15", income: 0,
+    dist: { ge: 0, gooner: 2500000, kawabata: 0, fee: 880, bank: 0 },
+    note: "Gooner出金250万。",
+  },
+  {
+    id: 5, date: "2025/06/18", income: 9900000,
+    dist: { ge: 1000000, gooner: 9000000, kawabata: 0, fee: 1760, bank: 0 },
+    note: "GCエステー振込。Gooner900万・GE100万出金。",
+  },
+  {
+    id: 6, date: "2025/06/25", income: 10200000,
+    dist: { ge: 1000000, gooner: 9000000, kawabata: 0, fee: 1760, bank: 353840 },
+    note: "GCエステー振込。Gooner900万・GE100万出金。残高353,840円。",
   },
 ];
 
-const fmt = (n) => (!n || n === 0) ? "—" : "¥" + Math.round(n).toLocaleString("ja-JP");
-const pct = (n) => (n * 100).toFixed(1) + "%";
+// 通帳外取引
+let transfers = [
+  {
+    id: 101, date: "2025/05/28",
+    from: 'ge', to: 'gooner', amount: 2000000,
+    note: "GE→Gooner200万",
+  },
+  {
+    id: 102, date: "2025/05/28",
+    from: 'gooner', to: 'fgc_miyama', amount: 2000000,
+    note: "Gooner→深山信次200万",
+  },
+  {
+    id: 103, date: "2025/05/29",
+    from: 'gooner', to: 'fgc_miyama', amount: 5000000,
+    note: "Gooner→深山信次500万",
+  },
+  {
+    id: 104, date: "2025/06/18",
+    from: 'gooner', to: 'fgc_miyama', amount: 9000000,
+    note: "Gooner→深山信次900万",
+  },
+  {
+    id: 105, date: "2025/06/18",
+    from: 'fgc_miyama', to: 'kawabata', amount: 2000000,
+    note: "深山信次→川畑200万",
+  },
+  {
+    id: 106, date: "2025/06/25",
+    from: 'gooner', to: 'fgc_miyama', amount: 9000000,
+    note: "Gooner→深山信次900万",
+  },
+  {
+    id: 107, date: "2025/06/30",
+    from: 'fgc_miyama', to: 'kawabata', amount: 3000000,
+    note: "深山信次建替・川畑300万",
+  },
+];
 
-function diffColor(d) {
-  if (d > 1000) return '#f59e0b';
-  if (d < -1000) return '#ef4444';
-  return '#64748b';
-}
-function diffLabel(d) {
-  if (Math.abs(d) < 1000) return '—';
-  return (d > 0 ? '+' : '') + fmt(Math.abs(d));
-}
+const fmt = n => n ? '¥' + Math.abs(Math.round(n)).toLocaleString('ja-JP') : '—';
+const fmtS = (n, showSign=false) => {
+  if (!n && n !== 0) return '—';
+  const s = '¥' + Math.abs(Math.round(n)).toLocaleString('ja-JP');
+  if (showSign && n < 0) return '−' + s;
+  return s;
+};
+const pct = n => (n*100).toFixed(1)+'%';
 
-function render() {
-  const totalPaid = payments.reduce((s, p) => s + p.total_paid, 0);
-  document.getElementById("total-paid").textContent = fmt(totalPaid);
-  document.getElementById("progress").textContent = pct(totalPaid / TARGET);
-
-  const cum = {
-    fa_kawabata:  payments.reduce((s, p) => s + (p.entries.fa_kawabata || 0), 0),
-    fa_tatekae:   payments.reduce((s, p) => s + (p.entries.fa_tatekae || 0), 0),
-    fgc_miyama:   payments.reduce((s, p) => s + (p.entries.fgc_miyama || 0), 0),
-    ge_misshuu:   payments.reduce((s, p) => s + (p.entries.ge_misshuu || 0), 0),
-    gooner:       payments.reduce((s, p) => s + (p.entries.gooner || 0), 0),
-    ge_hoshu:     payments.reduce((s, p) => s + (p.entries.ge_hoshu || 0), 0),
-    bank_zandaka: payments.reduce((s, p) => s + (p.entries.bank_zandaka || 0), 0),
-    furikomi_fee: payments.reduce((s, p) => s + (p.entries.furikomi_fee || 0), 0),
+function calcCum() {
+  // GK通帳累計
+  const gk = {
+    income: payments.reduce((s,p)=>s+p.income,0),
+    ge:     payments.reduce((s,p)=>s+(p.dist.ge||0),0),
+    gooner: payments.reduce((s,p)=>s+(p.dist.gooner||0),0),
+    kawabata: payments.reduce((s,p)=>s+(p.dist.kawabata||0),0),
+    fee:    payments.reduce((s,p)=>s+(p.dist.fee||0),0),
+    bank:   payments.reduce((s,p)=>s+(p.dist.bank||0),0),
   };
 
+  // 通帳外累計（各者の受取額）
+  const ext = { kawabata:0, fgc_miyama:0, ge:0, gooner:0 };
+  transfers.forEach(t => {
+    if (ext[t.to]   !== undefined) ext[t.to]   += t.amount;
+    if (ext[t.from] !== undefined) ext[t.from] -= t.amount;
+  });
+
+  // 各者の最終受取（GK通帳＋通帳外）
+  const paid = {
+    kawabata:   (gk.kawabata||0) + ext.kawabata,
+    fgc_miyama: ext.fgc_miyama,
+    ge:         (gk.ge||0) + ext.ge,
+    gooner:     (gk.gooner||0) + ext.gooner,
+  };
+
+  return { gk, ext, paid };
+}
+
+let modalType = 'payment';
+
+function render() {
+  const { gk, paid } = calcCum();
+
+  // 全体進捗
+  const prog = gk.income / TARGET;
+  document.getElementById('total-paid-label').textContent = fmt(gk.income);
+  document.getElementById('progress-fill').style.width = Math.min(prog*100,100)+'%';
+  document.getElementById('progress-pct').textContent = pct(prog);
+  document.getElementById('remaining-total').textContent = fmt(TARGET - gk.income);
+  document.getElementById('gk-balance').textContent = fmt(gk.bank);
+  document.getElementById('total-fee').textContent = fmt(gk.fee);
+
+  // 配分カード
   const cards = [
-    {
-      key: 'fa_kawabata',
-      name: 'GK受取枠 — FAフィー（川畑氏）',
-      cls: 'gk',
-      theo: totalPaid * RATIOS.fa_kawabata,
-      real: cum.fa_kawabata,
-      sub: cum.fa_tatekae ? `└ 深山信次立替済：${fmt(cum.fa_tatekae)}` : null,
-    },
-    {
-      key: 'fgc_miyama',
-      name: '深山信次・FGC',
-      cls: '',
-      theo: totalPaid * RATIOS.fgc_miyama,
-      real: cum.fgc_miyama,
-      sub: null,
-    },
-    {
-      key: 'ge_misshuu',
-      name: 'グローバルエナジー未収金',
-      cls: '',
-      theo: totalPaid * RATIOS.ge_misshuu,
-      real: cum.ge_misshuu,
-      sub: null,
-    },
-    {
-      key: 'gooner',
-      name: 'Gooner',
-      cls: 'gooner-card',
-      theo: totalPaid * RATIOS.gooner,
-      real: cum.gooner + cum.ge_hoshu,
-      sub: cum.ge_hoshu ? `└ GE報酬（付帯）：${fmt(cum.ge_hoshu)}` : '└ GE報酬（付帯）：—',
-    },
-    {
-      key: 'bank',
-      name: 'GK — 銀行残高＋振込手数料',
-      cls: '',
-      theo: 0,
-      real: cum.bank_zandaka + cum.furikomi_fee,
-      sub: `└ 残高：${fmt(cum.bank_zandaka)}　手数料：${fmt(cum.furikomi_fee)}`,
-    },
+    { key:'kawabata',   cls:'kawabata', color:'#00c8a0' },
+    { key:'fgc_miyama', cls:'fgc',      color:'#a78bfa' },
+    { key:'ge',         cls:'ge',       color:'#f59e0b' },
+    { key:'gooner',     cls:'gooner',   color:'#3b82f6' },
   ];
 
-  const container = document.getElementById("dist-cards");
-  container.innerHTML = "";
-  let cumTotal = 0;
-
+  const container = document.getElementById('person-cards');
+  container.innerHTML = '';
   cards.forEach(c => {
-    cumTotal += c.real;
-    const d = c.real - c.theo;
-    const progress = c.theo > 0 ? Math.min(c.real / c.theo, 1) : 0;
-    const barColor = c.cls === 'gk' ? '#00c8a0' : c.cls === 'gooner-card' ? '#3b82f6' : '#64748b';
+    const alloc = ALLOC[c.key];
+    const paidAmt = paid[c.key] || 0;
+    const remaining = alloc - paidAmt;
+    // 比率ベース理論値（現調達額に対して）
+    const theoretical = gk.income * RATIO[c.key];
+    const gap = paidAmt - theoretical;
+    const progress = alloc > 0 ? Math.min(paidAmt/alloc,1) : 0;
 
-    const div = document.createElement("div");
-    div.className = `dist-card ${c.cls}`;
+    const progPct = alloc > 0 ? paidAmt / alloc : 0;
+    const progColor = progPct >= 1 ? '#00c8a0' : progPct > 0 ? c.color : '#64748b';
+
+    const div = document.createElement('div');
+    div.className = `person-card ${c.cls}`;
     div.innerHTML = `
-      <div class="dist-card-header">
-        <span class="dist-card-name">${c.name}</span>
-        <span class="dist-card-pct">${pct(RATIOS[c.key])}</span>
+      <div class="pc-header">
+        <span class="pc-name">${LABELS[c.key]}</span>
+        <span class="pc-ratio">${pct(RATIO[c.key])}</span>
       </div>
-      <div class="dist-card-body">
-        <div class="dist-stat">
-          <div class="dist-stat-label">理論値</div>
-          <div class="dist-stat-value muted">${fmt(c.theo)}</div>
+      <div class="pc-body">
+        <div>
+          <div class="pc-stat-label">配分総額</div>
+          <div class="pc-stat-value muted">${fmtS(alloc)}</div>
         </div>
-        <div class="dist-stat">
-          <div class="dist-stat-label">実績</div>
-          <div class="dist-stat-value" style="color:${barColor}">${fmt(c.real)}</div>
+        <div>
+          <div class="pc-stat-label">支払済</div>
+          <div class="pc-stat-value" style="color:${c.color}">${fmtS(paidAmt)}</div>
         </div>
-        <div class="dist-stat">
-          <div class="dist-stat-label">差異</div>
-          <div class="dist-stat-value" style="color:${diffColor(d)}">${diffLabel(d)}</div>
+        <div>
+          <div class="pc-stat-label">残額</div>
+          <div class="pc-stat-value amber">${fmtS(remaining)}</div>
+        </div>
+        <div>
+          <div class="pc-stat-label">進捗</div>
+          <div class="pc-stat-value" style="color:${progColor}">${pct(progPct)}</div>
         </div>
       </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar"><div class="progress-bar-fill" style="width:${(progress*100).toFixed(1)}%;background:${barColor}"></div></div>
+      <div class="pc-bar-wrap">
+        <div class="pc-bar"><div class="pc-bar-fill" style="width:${(progress*100).toFixed(1)}%;background:${c.color}"></div></div>
       </div>
-      ${c.sub ? `<div class="sub-item"><span class="sub-item-label">${c.sub}</span></div>` : ''}
+      ${c.key==='gooner' ? `<div class="pc-sub">うちGE報酬（通帳外）：¥2,495,181</div>` : ''}
     `;
     container.appendChild(div);
   });
 
-  document.getElementById("total-cum").textContent = fmt(cumTotal);
+  // GK通帳履歴（昇順）
+  const hp = document.getElementById('hist-payment');
+  hp.innerHTML = '';
+  [...payments].sort((a,b)=>a.date.localeCompare(b.date)).forEach(p => {
+    const rows = [
+      { name:'GE未収金', val:p.dist.ge },
+      { name:'Gooner',   val:p.dist.gooner },
+      { name:'川畑氏',   val:p.dist.kawabata },
+      { name:'手数料',   val:p.dist.fee },
+      { name:'GK残高',   val:p.dist.bank },
+    ].filter(r=>r.val && r.val!==0);
 
-  // History
-  const histList = document.getElementById("history-list");
-  histList.innerHTML = "";
-  [...payments].reverse().forEach(p => {
-    const goonerTotal = (p.entries.gooner || 0) + (p.entries.ge_hoshu || 0);
-    const entries = [
-      { name: 'GK受取枠 — FAフィー（川畑氏）', val: p.entries.fa_kawabata, sub: p.entries.fa_tatekae ? `深山信次立替済：${fmt(p.entries.fa_tatekae)}` : null, cls: 'gk-entry' },
-      { name: '深山信次・FGC', val: p.entries.fgc_miyama, sub: null, cls: '' },
-      { name: 'GE未収金', val: p.entries.ge_misshuu, sub: null, cls: '' },
-      { name: 'Gooner', val: goonerTotal, sub: p.entries.ge_hoshu ? `GE報酬（付帯）：${fmt(p.entries.ge_hoshu)}` : null, cls: '' },
-    ].filter(e => e.val > 0);
-
-    const div = document.createElement("div");
-    div.className = "hist-item";
+    const div = document.createElement('div');
+    div.className = 'hist-item';
     div.innerHTML = `
       <div class="hist-meta">
-        <span class="hist-date">${p.date}</span>
-        <span class="hist-total">¥${p.total_paid.toLocaleString("ja-JP")}</span>
+        <span class="hist-date">${p.date}${p.income>0?`<span class="badge badge-blue">入金</span>`:''}</span>
+        <span class="hist-amount blue">${p.income>0?fmt(p.income):'—'}</span>
       </div>
       <div class="hist-entries">
-        ${entries.map(e => `
-          <div class="hist-entry ${e.cls}">
-            <div class="hist-entry-left">
-              <div class="hist-entry-name">${e.name}</div>
-              ${e.sub ? `<div class="hist-entry-sub">${e.sub}</div>` : ''}
-            </div>
-            <div class="hist-entry-val">${fmt(e.val)}</div>
+        ${rows.map(r=>`
+          <div class="hist-entry">
+            <span class="hist-entry-name">${r.name}</span>
+            <span class="hist-entry-val positive">${fmt(r.val)}</span>
           </div>
-        `).join("")}
+        `).join('')}
       </div>
-      ${p.note ? `<div class="hist-note">※ ${p.note}</div>` : ""}
+      ${p.note?`<div class="hist-note">※ ${p.note}</div>`:''}
     `;
-    histList.appendChild(div);
+    hp.appendChild(div);
   });
+
+  // 通帳外取引（昇順）
+  const ht = document.getElementById('hist-transfer');
+  ht.innerHTML = '';
+  if (transfers.length===0) {
+    ht.innerHTML = '<div style="font-size:0.7rem;color:#64748b;padding:0.5rem 0">記録なし</div>';
+  } else {
+    [...transfers].sort((a,b)=>a.date.localeCompare(b.date)).forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'hist-item';
+      div.innerHTML = `
+        <div class="hist-meta">
+          <span class="hist-date">${t.date}<span class="badge">振替</span></span>
+          <span class="hist-amount amber">${fmt(t.amount)}</span>
+        </div>
+        <div class="hist-entries">
+          <div class="hist-entry">
+            <span class="hist-entry-name">${LABELS[t.from]||t.from} → ${LABELS[t.to]||t.to}</span>
+            <span class="hist-entry-val positive">${fmt(t.amount)}</span>
+          </div>
+        </div>
+        ${t.note?`<div class="hist-note">※ ${t.note}</div>`:''}
+      `;
+      ht.appendChild(div);
+    });
+  }
 }
 
-function openModal() { document.getElementById("modal").classList.add("open"); }
-function closeModal() { document.getElementById("modal").classList.remove("open"); }
+function openModal(type) {
+  modalType = type;
+  document.getElementById('modal-title').textContent = type==='payment' ? 'GK通帳入力' : '通帳外取引入力';
+  document.getElementById('section-payment').classList.toggle('active', type==='payment');
+  document.getElementById('section-transfer').classList.toggle('active', type==='transfer');
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
 
-function addPayment() {
-  payments.push({
-    id: Date.now(),
-    date: document.getElementById("f-date").value,
-    total_paid: parseInt(document.getElementById("f-total").value) || 0,
-    entries: {
-      fa_kawabata: parseInt(document.getElementById("f-fa").value) || 0,
-      fa_tatekae:  parseInt(document.getElementById("f-fa-tatekae").value) || 0,
-      fgc_miyama:  parseInt(document.getElementById("f-fgc").value) || 0,
-      ge_misshuu:  parseInt(document.getElementById("f-ge1").value) || 0,
-      gooner:      parseInt(document.getElementById("f-gooner").value) || 0,
-      ge_hoshu:    parseInt(document.getElementById("f-ge2").value) || 0,
-    },
-    note: document.getElementById("f-note").value,
-  });
+function submitModal() {
+  if (modalType==='payment') {
+    payments.push({
+      id: Date.now(),
+      date: document.getElementById('p-date').value,
+      income: parseInt(document.getElementById('p-income').value)||0,
+      dist: {
+        ge:       parseInt(document.getElementById('p-ge').value)||0,
+        gooner:   parseInt(document.getElementById('p-gooner').value)||0,
+        kawabata: parseInt(document.getElementById('p-kawabata').value)||0,
+        fee:      parseInt(document.getElementById('p-fee').value)||0,
+        bank:     parseInt(document.getElementById('p-bank').value)||0,
+      },
+      note: document.getElementById('p-note').value,
+    });
+    ['p-date','p-income','p-ge','p-gooner','p-kawabata','p-fee','p-bank','p-note'].forEach(id=>document.getElementById(id).value='');
+  } else {
+    transfers.push({
+      id: Date.now(),
+      date: document.getElementById('t-date').value,
+      from: document.getElementById('t-from').value,
+      to:   document.getElementById('t-to').value,
+      amount: parseInt(document.getElementById('t-amount').value)||0,
+      note: document.getElementById('t-note').value,
+    });
+    ['t-date','t-amount','t-note'].forEach(id=>document.getElementById(id).value='');
+  }
   closeModal();
-  ["f-date","f-total","f-fa","f-fa-tatekae","f-fgc","f-ge1","f-gooner","f-ge2","f-note"].forEach(id => {
-    document.getElementById(id).value = "";
-  });
   render();
 }
 
 render();
+
+// ==================== データ管理 ====================
+
+// JSONエクスポート
+function exportJSON() {
+  const data = { payments, transfers, exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'camel_db_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+}
+
+// JSONインポート
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.payments) payments = data.payments;
+      if (data.transfers) transfers = data.transfers;
+      render();
+      document.getElementById('import-status').textContent = '✓ 読み込み完了：' + (data.exportedAt ? data.exportedAt.slice(0,16).replace('T',' ') : '');
+      document.getElementById('import-status').style.color = '#00c8a0';
+    } catch(err) {
+      document.getElementById('import-status').textContent = '✗ 読み込み失敗';
+      document.getElementById('import-status').style.color = '#ef4444';
+    }
+  };
+  reader.readAsText(file);
+}
+
+// GitHub API保存
+async function saveToGitHub() {
+  const token = document.getElementById('gh-token').value.trim();
+  const repo  = document.getElementById('gh-repo').value.trim();   // owner/repo
+  const path  = document.getElementById('gh-path').value.trim();   // data/db.json
+
+  if (!token || !repo || !path) {
+    setGhStatus('トークン・リポジトリ・パスを入力してください', '#ef4444');
+    return;
+  }
+
+  setGhStatus('保存中...', '#64748b');
+
+  const data = { payments, transfers, savedAt: new Date().toISOString() };
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+  // 現在のSHAを取得
+  let sha = '';
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) { const j = await res.json(); sha = j.sha; }
+  } catch(e) {}
+
+  // PUT
+  try {
+    const body = { message: 'update db ' + new Date().toISOString().slice(0,10), content, ...(sha ? {sha} : {}) };
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      setGhStatus('✓ GitHubに保存しました', '#00c8a0');
+    } else {
+      const err = await res.json();
+      setGhStatus('✗ ' + (err.message||'保存失敗'), '#ef4444');
+    }
+  } catch(e) {
+    setGhStatus('✗ ネットワークエラー', '#ef4444');
+  }
+}
+
+// GitHubからデータ読み込み
+async function loadFromGitHub() {
+  const token = document.getElementById('gh-token').value.trim();
+  const repo  = document.getElementById('gh-repo').value.trim();
+  const path  = document.getElementById('gh-path').value.trim();
+
+  if (!repo || !path) { setGhStatus('リポジトリ・パスを入力してください', '#ef4444'); return; }
+
+  setGhStatus('読み込み中...', '#64748b');
+  try {
+    const headers = token ? { Authorization: `token ${token}` } : {};
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, { headers });
+    if (!res.ok) { setGhStatus('✗ ファイルが見つかりません', '#ef4444'); return; }
+    const j = await res.json();
+    const text = decodeURIComponent(escape(atob(j.content)));
+    const data = JSON.parse(text);
+    if (data.payments) payments = data.payments;
+    if (data.transfers) transfers = data.transfers;
+    render();
+    setGhStatus('✓ 読み込み完了：' + (data.savedAt ? data.savedAt.slice(0,16).replace('T',' ') : ''), '#00c8a0');
+  } catch(e) {
+    setGhStatus('✗ 読み込み失敗', '#ef4444');
+  }
+}
+
+function setGhStatus(msg, color) {
+  const el = document.getElementById('gh-status');
+  el.textContent = msg;
+  el.style.color = color;
+}
 </script>
+
+<!-- データ管理パネル -->
+<div style="margin-top:2rem;background:#151820;border:1px solid #1e2330;border-radius:8px;padding:1rem;">
+  <div style="font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:#64748b;margin-bottom:1rem;padding-bottom:0.4rem;border-bottom:1px solid #1e2330;">データ管理</div>
+
+  <!-- エクスポート・インポート -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1rem;">
+    <button onclick="exportJSON()" style="background:#1e2330;color:#e2e8f0;border:1px solid #334155;border-radius:6px;padding:0.55rem;font-size:0.72rem;font-weight:700;cursor:pointer;">↓ JSONエクスポート</button>
+    <label style="background:#1e2330;color:#e2e8f0;border:1px solid #334155;border-radius:6px;padding:0.55rem;font-size:0.72rem;font-weight:700;cursor:pointer;text-align:center;">
+      ↑ JSONインポート
+      <input type="file" accept=".json" onchange="importJSON(event)" style="display:none">
+    </label>
+  </div>
+  <div id="import-status" style="font-size:0.62rem;margin-bottom:1rem;min-height:1rem;"></div>
+
+  <!-- GitHub API -->
+  <div style="font-size:0.6rem;color:#64748b;margin-bottom:0.5rem;font-weight:700;">GitHub API（管理者のみ）</div>
+  <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.6rem;">
+    <input id="gh-token" type="password" placeholder="GitHubトークン（ghp_...）" style="background:#0d0f14;border:1px solid #1e2330;border-radius:6px;padding:0.45rem 0.75rem;color:#e2e8f0;font-size:0.75rem;font-family:monospace;outline:none;">
+    <input id="gh-repo" placeholder="owner/repo（例: novitasos-del/distribution-db）" value="novitasos-del/distribution-db" style="background:#0d0f14;border:1px solid #1e2330;border-radius:6px;padding:0.45rem 0.75rem;color:#e2e8f0;font-size:0.75rem;font-family:monospace;outline:none;">
+    <input id="gh-path" placeholder="保存先パス（例: data/db.json）" value="data/db.json" style="background:#0d0f14;border:1px solid #1e2330;border-radius:6px;padding:0.45rem 0.75rem;color:#e2e8f0;font-size:0.75rem;font-family:monospace;outline:none;">
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+    <button onclick="loadFromGitHub()" style="background:#1e2330;color:#3b82f6;border:1px solid #3b82f633;border-radius:6px;padding:0.55rem;font-size:0.72rem;font-weight:700;cursor:pointer;">↓ GitHubから読込</button>
+    <button onclick="saveToGitHub()" style="background:#00c8a022;color:#00c8a0;border:1px solid #00c8a033;border-radius:6px;padding:0.55rem;font-size:0.72rem;font-weight:700;cursor:pointer;">↑ GitHubへ保存</button>
+  </div>
+  <div id="gh-status" style="font-size:0.62rem;margin-top:0.6rem;min-height:1rem;"></div>
+</div>
+
 </body>
 </html>
