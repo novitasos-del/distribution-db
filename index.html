@@ -261,8 +261,13 @@ let payments = [
   },
   {
     id: 6, date: "2025/06/25", income: 10200000,
-    dist: { ge: 1000000, gooner: 9000000, kawabata: 0, fee: 1760, bank: 353840 },
-    note: "GCエステー振込。Gooner900万・GE100万出金。残高353,840円。",
+    dist: { ge: 1000000, gooner: 9000000, kawabata: 0, fee: 1760, bank: 0 },
+    note: "GCエステー振込。Gooner900万・GE100万出金。",
+  },
+  {
+    id: 7, date: "2025/07/07", income: 5000000,
+    dist: { ge: 0, gooner: 5000000, kawabata: 0, fee: 880, bank: 352960 },
+    note: "グローバルクラウド振込。Gooner500万出金。残高352,960円。",
   },
 ];
 
@@ -302,6 +307,11 @@ let transfers = [
     id: 107, date: "2025/06/30",
     from: 'fgc_miyama', to: 'kawabata', amount: 3000000,
     note: "深山信次建替・川畑300万",
+  },
+  {
+    id: 108, date: "2025/07/07",
+    from: 'gooner', to: 'fgc_miyama', amount: 3000000,
+    note: "Gooner→深山信次300万",
   },
 ];
 
