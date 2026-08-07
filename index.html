@@ -296,6 +296,8 @@ let transfers = [
   { id:111, date:"2025/07/28", from:'gooner', to:'fgc_miyama', amount:20000000, note:"Gooner→深山信次2,000万" },
   { id:112, date:"2025/07/31", from:'gooner', to:'fgc_miyama', amount:30000000, note:"Gooner→深山信次3,000万" },
   { id:113, date:"2025/08/07", from:'gooner', to:'fgc_miyama', amount:10000000, note:"Gooner→深山信次1,000万" },
+  { id:114, date:"2025/08/07", from:'fgc_miyama', to:'kawabata', amount:5000000, note:"深山信次→川畑500万（FAフィー精算）" },
+  { id:115, date:"2025/08/07", from:'fgc_miyama', to:'gooner', amount:7200000, note:"深山信次→Gooner720万" },
 ];
 
 const fmt = n => (n || n===0) ? '¥' + Math.abs(Math.round(n)).toLocaleString('ja-JP') : '—';
@@ -342,18 +344,19 @@ function render() {
   ];
 
   // Gooner詳細計算
-  const goonerReceived = gk.gooner + 2000000;
+  const goonerReceived = gk.gooner + 2000000; // GKから＋GEから
   const goonerPaidOut  = transfers.filter(t=>t.from==='gooner').reduce((s,t)=>s+t.amount,0);
-  const goonerBalance  = goonerReceived - goonerPaidOut;
+  const goonerFromOthers = transfers.filter(t=>t.to==='gooner' && t.from!=='ge').reduce((s,t)=>s+t.amount,0);
+  const goonerBalance  = goonerReceived - goonerPaidOut + goonerFromOthers;
   const goonerSettle   = 7410000 + 2495181;
   const goonerReal     = goonerBalance - goonerSettle;
 
   // 各者の実質受取済
   const realPaid = {
     kawabata:   paid.kawabata,
-    fgc_miyama: paid.fgc_miyama - 5000000,
+    fgc_miyama: paid.fgc_miyama,
     ge:         paid.ge,
-    gooner:     goonerBalance, // 現在手元（精算前）
+    gooner:     goonerBalance,
   };
 
   const container = document.getElementById('person-cards');
@@ -385,6 +388,7 @@ function render() {
       <div class="pc-bar-wrap">
         <div class="pc-bar"><div class="pc-bar-fill" style="width:${(progressPct*100).toFixed(1)}%;background:${color}"></div></div>
       </div>
+      ${c.key==='kawabata' ? `<div class="pc-sub" style="color:#dc2626;font-weight:700;">⚠ 超過払い：¥2,590,000（深山信次負担）</div>` : ''}
     `;
     container.appendChild(div);
   });
