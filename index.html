@@ -277,7 +277,9 @@ let payments = [
   { id:8, date:"2025/07/09", income:5500000, dist:{ge:0,gooner:5000000,fee:880,bank:0}, note:"グローバルクラウド振込。Gooner500万出金。" },
   { id:9, date:"2025/07/16", income:19000000, dist:{ge:2000000,gooner:17000000,fee:1760,bank:0}, note:"GCエステー振込。Gooner1,700万・GE200万出金。" },
   { id:10, date:"2025/07/23", income:19140000, dist:{ge:1000000,gooner:18000000,fee:1760,bank:0}, note:"GCエステー振込。Gooner1,800万・GE100万出金。" },
-  { id:11, date:"2025/07/28", income:20500000, dist:{ge:0,gooner:20000000,fee:880,bank:1487680}, note:"GCエステー振込。Gooner2,000万出金。残高1,487,680円。" },
+  { id:11, date:"2025/07/28", income:20500000, dist:{ge:0,gooner:20000000,other:0,fee:880,bank:0}, note:"GCエステー振込。Gooner2,000万出金。" },
+  { id:12, date:"2025/07/31", income:30500000, dist:{ge:0,gooner:30000000,other:1100000,fee:1760,bank:0}, note:"GCエステー振込。Gooner3,000万・大洋110万出金。" },
+  { id:13, date:"2025/08/07", income:10400000, dist:{ge:1000000,gooner:10000000,other:0,fee:1760,bank:284160}, note:"GCエステー振込。Gooner1,000万・GE100万出金。残高284,160円。" },
 ];
 
 let transfers = [
@@ -392,6 +394,7 @@ function render() {
     const rows = [
       { name:'GE未収金', val:p.dist.ge },
       { name:'Gooner',   val:p.dist.gooner },
+      { name:'その他',   val:p.dist.other },
       { name:'手数料',   val:p.dist.fee },
       { name:'GK残高',   val:p.dist.bank },
     ].filter(r=>r.val && r.val!==0);
